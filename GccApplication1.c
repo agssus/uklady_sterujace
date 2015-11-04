@@ -13,8 +13,8 @@ int main(void)
 {
 	DDRA = 0xFF;
 	PORTA = 0x00;
-  while(1)
-  {
+  	while(1)
+  	{
 		for(int i=0; i<8; i++)
 		{
 			PORTA = 1 << i;
@@ -28,5 +28,5 @@ int main(void)
 			_delay_ms(800);
 		}
 		_delay_ms(800);
-  }
+	}
 }
