@@ -31,5 +31,5 @@ int main(void)
 		  	PORTA = ~PORTA;
 		  	_delay_ms(i);
 	  	}
-    }
+    	}
 }
