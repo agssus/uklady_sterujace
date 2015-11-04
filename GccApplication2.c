@@ -16,14 +16,16 @@ int main(void)
 	int x = 150;
   while(1)
   {
-  	for(int i=0; i<x; i++){
+  	for(int i=0; i<x; i++)
+  	{
 	  	PORTA = ~PORTA;
 	  	_delay_ms(x-i);
 	  	PORTA = ~PORTA;
 	  	_delay_ms(i);
 	  }
 		
-	  for(int i=x; i>=0; i--){
+	  for(int i=x; i>=0; i--)
+	  {
 		  PORTA = ~PORTA;
 		  _delay_ms(x-i);
 		  PORTA = ~PORTA;
