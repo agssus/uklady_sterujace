@@ -14,22 +14,22 @@ int main(void)
 	DDRA = 0xFF;
 	PORTA = 0x00;
 	int x = 150;
-  while(1)
-  {
-  	for(int i=0; i<x; i++)
+  	while(1)
   	{
-	  	PORTA = ~PORTA;
-	  	_delay_ms(x-i);
-	  	PORTA = ~PORTA;
-	  	_delay_ms(i);
-	  }
+  		for(int i=0; i<x; i++)
+  		{
+		  	PORTA = ~PORTA;
+		  	_delay_ms(x-i);
+		  	PORTA = ~PORTA;
+		  	_delay_ms(i);
+		  }
 		
-	  for(int i=x; i>=0; i--)
-	  {
-		  PORTA = ~PORTA;
-		  _delay_ms(x-i);
-		  PORTA = ~PORTA;
-		  _delay_ms(i);
-	  }
-  }
+	  	for(int i=x; i>=0; i--)
+	  	{
+		  	PORTA = ~PORTA;
+		  	_delay_ms(x-i);
+		  	PORTA = ~PORTA;
+		  	_delay_ms(i);
+	  	}
+    }
 }
