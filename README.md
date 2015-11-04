@@ -1,5 +1,4 @@
-# uklady_sterujace
+# Układy Sterujące, grupa nr 1 (środa 16-18)
 
-grupa sroda 16-18
-Anna Gawlowska
-Sebastian Sek
+
+Anna Gawłowska, Sebastian Sęk
