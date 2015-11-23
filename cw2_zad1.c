@@ -6,11 +6,8 @@
 int count = 0;
 
 ISR(INT0_vect){
-   
     count++;
-
-    PORTA = count;
-    PORTA = PORTA << 1;
+    PORTA = count << 1;
 }
 
 
