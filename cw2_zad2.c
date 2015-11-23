@@ -17,12 +17,12 @@ int main(void)
 	
     while(1)
     {
-		if (!(PIND & (1 << PD2))) // czy przycisk wcisniety?
+		if ((~PIND) & (1 << PD2)) // czy przycisk wcisniety?
 		{
 			OCR0+=1; //jasniej
 			_delay_ms(20); // zeby bylo plynnie
 		}
-		if (!(PIND & (1 << PD3))) // czy przycisk wcisniety?
+		if ((~PIND) & (1 << PD3)) // czy przycisk wcisniety?
 		{
 			OCR0-=1; //ciemniej
 			_delay_ms(20);
