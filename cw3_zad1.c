@@ -19,8 +19,8 @@ int main(void)
 	int digits[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8,0x80, 0x90};
 	int temp_time_counter = 0;
 	
-    while(1)
-    {
+	while(1)
+	{
 		PORTB = column1;
 		PORTA = digits[time % 10];
 		_delay_ms(1);
@@ -42,5 +42,5 @@ int main(void)
 			time++;
 			temp_time_counter = 0;
 		}
-    }
+	}
 }
