@@ -1,46 +1,103 @@
+/*
+ * CFile1.c
+ *
+ * Created: 2015-12-09 16:22:44
+ *  Author: Administrator
+ */ 
+
+#include "HD44780.h"
 #define F_CPU 16000000UL
-#include <avr/io.h>
 #include <util/delay.h>
 
-int main(void)
+
+#define E 0x10
+#define RS 0x20
+
+void WriteNibble(unsigned char nibbleToWrite)
 {
-	DDRA = 0xFF;
-	PORTA = 0x00;
-	
-	DDRB = 0xFF;
-	PORTB = ~0xF8;
-	
-	int time = 0;
-	int column1 = ~0xF1;
-	int column2 = ~0xF2;
-	int column3 = ~0xF4;
-	int column4 = ~0xF8;
-	
-	int digits[10] = {0xC0, 0xF9, 0xA4, 0xB0, 0x99, 0x92, 0x82, 0xF8,0x80, 0x90};
-	int temp_time_counter = 0;
-	
-	while(1)
-	{
-		PORTB = column1;
-		PORTA = digits[time % 10];
-		_delay_ms(1);
-		
-		PORTB = column2;
-		PORTA = digits[(time/10) % 10];
-		_delay_ms(1);
-		
-		PORTB = column3;
-		PORTA = digits[(time/100) % 10];
-		_delay_ms(1);
-		
-		PORTB = column4;
-		PORTA = digits[(time/1000) % 10];
-		_delay_ms(1);
-		temp_time_counter += 4;
-		
-		if(temp_time_counter > 1000){
-			time++;
-			temp_time_counter = 0;
-		}
+	PORTA |= E;
+	PORTA = (PORTA & 0xF0) | (nibbleToWrite & 0x0F);
+	PORTA &= ~E;
+}
+
+
+void WriteByte(unsigned char dataToWrite)
+{
+	WriteNibble(dataToWrite >> 4);
+	WriteNibble(dataToWrite);
+}
+
+
+void LCD_Command(unsigned char command)
+{
+	PORTA &= ~RS;
+	WriteByte(command);
+};
+
+void LCD_Text(char * text)
+{
+
+	PORTA |= RS;
+	int i = 0;
+	while (text[i] != '\0'){
+		LCD_GoToXY(i,0);
+		WriteByte(text[i++]);
 	}
+
+};
+
+void LCD_GoToXY(unsigned char x, unsigned char y)
+{
+	_delay_ms(3);
+	char adr = y*0x40 +x;
+	PORTA = adr | 0x60;
+	_delay_ms(3);
+	
+	
+};
+/*
+void LCD_Clear(void)
+{
+};
+
+void LCD_Home(void)
+{
+};
+*/
+void LCD_Initalize(void)
+{
+	_delay_ms(50);
+	for(int i=0; i<3; i++){
+		WriteNibble(0x03);
+		_delay_ms(5);
+	}
+	WriteNibble(0x02);
+	_delay_ms(2);
+
+	LCD_Command(0x28);
+	_delay_ms(2);
+	
+	LCD_Command(0x08);
+	_delay_ms(2);
+	
+	LCD_Command(0x01);
+	_delay_ms(2);
+	
+	LCD_Command(0x06);
+	_delay_ms(2);
+	
+	LCD_Command(0x0f);
+	_delay_ms(2);
+	
+};
+
+int main(void){
+	DDRA = 0xFF;
+	LCD_Initalize();
+	LCD_Text("text");
+	while(1){
+		
+		
+	}
+	
 }
